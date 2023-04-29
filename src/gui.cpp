@@ -70,11 +70,11 @@ void createGui(sf::RenderWindow& window)
 
 	// blue
 	blue_left.setSize(sf::Vector2f(10, 30));
-	blue_left.setPosition(sf::Vector2f(0, 750));
+	blue_left.setPosition(sf::Vector2f(0, 842));
 	blue_left.setFillColor(sf::Color(30, 100, 162));
 
 	blue_right.setSize(sf::Vector2f(10, 30));
-	blue_right.setPosition(sf::Vector2f(690, 750));
+	blue_right.setPosition(sf::Vector2f(690, 842));
 	blue_right.setFillColor(sf::Color(30, 100, 162));
 
 	window.draw(top_border);
