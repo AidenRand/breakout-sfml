@@ -12,3 +12,37 @@ void Paddle::drawTo(sf::RenderWindow& window)
 {
 	window.draw(paddle);
 }
+
+void Paddle::movePaddle(float dt)
+{
+	// Allow paddle to be moved
+	sf::Vector2f velocity;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		paddle.setSize(sf::Vector2f(80, 14));
+		paddle.setOrigin(40, 7);
+		move = true;
+	}
+
+	// Move paddle with left and right arrow keys
+	if (move == true)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			velocity.x -= step_x;
+			if (paddle.getPosition().x < 40)
+			{
+				velocity.x += step_x;
+			}
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			velocity.x += step_x;
+			if (paddle.getPosition().x > 660)
+			{
+				velocity.x -= step_x;
+			}
+		}
+	}
+	paddle.move(velocity * dt);
+}

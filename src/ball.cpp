@@ -11,5 +11,21 @@ Ball::Ball(float x, float y, float width, float height, float step)
 
 void Ball::drawTo(sf::RenderWindow& window)
 {
-	window.draw(ball);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		move = true;
+	}
+
+	if (move == true)
+	{
+		update();
+		window.draw(ball);
+	}
+}
+
+void Ball::update()
+{
+	velocity.x = step_x * cos(random_angle * M_PI / 180);
+	velocity.y = step_y * sin(random_angle * M_PI / 180);
+	ball.move(velocity);
 }
