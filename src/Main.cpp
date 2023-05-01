@@ -6,7 +6,7 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(700, 900), "Breakout");
-	window.setFramerateLimit(30);
+	window.setFramerateLimit(60);
 	std::srand(time(NULL));
 	sf::Clock clock;
 	float dt;
@@ -25,7 +25,8 @@ int main()
 
 		window.clear();
 		dt = clock.restart().asSeconds();
-		ball.drawTo(window);
+		ball.collision(paddle);
+		ball.drawTo(window, dt);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
 		createGui(window);

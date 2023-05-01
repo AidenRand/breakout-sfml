@@ -1,4 +1,5 @@
 #include "ball.hpp"
+#include "paddle.hpp"
 
 Ball::Ball(float x, float y, float width, float height, float step)
 {
@@ -9,7 +10,7 @@ Ball::Ball(float x, float y, float width, float height, float step)
 	std::cout << step;
 }
 
-void Ball::drawTo(sf::RenderWindow& window)
+void Ball::drawTo(sf::RenderWindow& window, float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -18,14 +19,37 @@ void Ball::drawTo(sf::RenderWindow& window)
 
 	if (move == true)
 	{
-		update();
+		velocity.x = step_x * cos(random_angle * M_PI / 180);
+		velocity.y = step_y * sin(random_angle * M_PI / 180);
+		ball.move(velocity * dt);
 		window.draw(ball);
 	}
 }
 
-void Ball::update()
+void Ball::collision(Paddle& player_paddle)
 {
-	velocity.x = step_x * cos(random_angle * M_PI / 180);
-	velocity.y = step_y * sin(random_angle * M_PI / 180);
-	ball.move(velocity);
+	auto paddle = player_paddle.paddle;
+
+	if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds()))
+	{
+		step_y *= -1;
+		int reverse_x = rand() % 2;
+		if (reverse_x == 1)
+		{
+			step_x *= -1;
+		}
+	}
+	if (ball.getPosition().y < 10)
+	{
+		step_y *= -1;
+	}
+
+	if (ball.getPosition().x > 690)
+	{
+		step_x *= -1;
+	}
+	else if (ball.getPosition().x < 10)
+	{
+		step_x *= -1;
+	}
 }
