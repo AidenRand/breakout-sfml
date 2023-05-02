@@ -1,5 +1,6 @@
 #include "ball.hpp"
 #include "paddle.hpp"
+#include <gui.hpp>
 
 Ball::Ball(float x, float y, float width, float height, float step)
 {
@@ -27,9 +28,12 @@ void Ball::drawTo(sf::RenderWindow& window, float dt)
 	}
 }
 
-void Ball::collision(Paddle& player_paddle)
+void Ball::collision(Paddle& player_paddle, Gui& gui)
 {
 	auto paddle = player_paddle.paddle;
+	auto top_rect = gui.top_border;
+	auto left_rect = gui.left_border;
+	auto right_rect = gui.right_border;
 
 	// If ball collides with paddle reverse y direction and randomly
 	// reverse x direction

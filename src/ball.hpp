@@ -3,13 +3,14 @@
 
 #include "paddle.hpp"
 #include <SFML/Graphics.hpp>
+#include <gui.hpp>
 
 class Ball
 {
 public:
 	Ball(float x, float y, float width, float height, float step);
 	void drawTo(sf::RenderWindow& window, float dt);
-	void collision(Paddle& player_paddle);
+	void collision(Paddle& player_paddle, Gui& gui);
 	void killBall(int& lives_left);
 
 private:

@@ -13,6 +13,7 @@ int main()
 	float dt;
 	int lives_left = 0;
 
+	Gui gui(10, 900, 700, 30, 10, 30);
 	Ball ball(350, 500, 10, 8, 5);
 	Paddle paddle(700, 14, 350, 855);
 
@@ -24,17 +25,17 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		std::cout << lives_left << "\n";
 
 		Game game(lives_left);
 		window.clear();
 		dt = clock.restart().asSeconds();
-		ball.collision(paddle);
+		gui.drawBorders(window);
+		ball.collision(paddle, gui);
 		ball.killBall(lives_left);
 		ball.drawTo(window, dt);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
-		createGui(window);
+
 		game.drawLives(window);
 		window.display();
 	}
