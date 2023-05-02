@@ -26,6 +26,7 @@ int main()
 		window.clear();
 		dt = clock.restart().asSeconds();
 		ball.collision(paddle);
+		ball.killBall();
 		ball.drawTo(window, dt);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
