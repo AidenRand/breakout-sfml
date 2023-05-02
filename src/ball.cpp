@@ -66,7 +66,7 @@ void Ball::collision(Paddle& player_paddle)
 	}
 }
 
-void Ball::killBall()
+void Ball::killBall(int& lives_left)
 {
 	// If the ball is off the screen,
 	// reset the position and get new random direction
@@ -74,8 +74,9 @@ void Ball::killBall()
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = rand() % -180;
+			random_angle = (rand() % -170);
 			ball.setPosition(sf::Vector2f(350, 500));
+			lives_left++;
 		}
 	}
 	is_dead = false;

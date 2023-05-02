@@ -12,7 +12,7 @@ public:
 	sf::RectangleShape paddle;
 
 private:
-	int step_x = 500;
+	int step_x = 700;
 	float paddle_pos_x = paddle.getPosition().x;
 	bool move = false;
 };
