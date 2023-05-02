@@ -50,8 +50,9 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 
 	// If ball hits top border reverse direction.
 	// If goes beyond bottom barrier, set is_dead to true
-	if (ball.getPosition().y <= 33)
+	if (ball.getGlobalBounds().intersects(top_rect.getGlobalBounds()))
 	{
+		ball.setPosition(ball.getPosition().x, top_rect.getPosition().y + 33);
 		step_y *= -1;
 	}
 	else if (ball.getPosition().y >= 910)
@@ -60,12 +61,14 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	}
 
 	// If ball hits the left or right barrier, reverse direction
-	if (ball.getPosition().x >= 684)
+	if (ball.getGlobalBounds().intersects(right_rect.getGlobalBounds()))
 	{
+		ball.setPosition(right_rect.getPosition().x - 14, ball.getPosition().y);
 		step_x *= -1;
 	}
-	else if (ball.getPosition().x <= 14)
+	if (ball.getGlobalBounds().intersects(left_rect.getGlobalBounds()))
 	{
+		ball.setPosition(left_rect.getPosition().x + 14, ball.getPosition().y);
 		step_x *= -1;
 	}
 }
@@ -78,7 +81,8 @@ void Ball::killBall(int& lives_left)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = (rand() % -170);
+			random_angle = rand() % (165 - 45 + 1);
+			std::cout << random_angle << "\n";
 			ball.setPosition(sf::Vector2f(350, 500));
 			lives_left++;
 		}
