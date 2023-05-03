@@ -16,6 +16,6 @@ void Game::drawLives(sf::RenderWindow& window)
 	}
 	lives_text.setFont(font);
 	lives_text.setCharacterSize(100);
-	lives_text.setFillColor(sf::Color(200, 200, 200));
+	lives_text.setFillColor(sf::Color(180, 180, 180));
 	window.draw(lives_text);
 }

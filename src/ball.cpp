@@ -44,7 +44,7 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 		int randSide = rand() % 2;
 		if (randSide == 1)
 		{
-			step_x *= -1;
+			velocity.y *= -1;
 		}
 	}
 
@@ -52,7 +52,7 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	// If goes beyond bottom barrier, set is_dead to true
 	if (ball.getGlobalBounds().intersects(top_rect.getGlobalBounds()))
 	{
-		ball.setPosition(ball.getPosition().x, top_rect.getPosition().y + 33);
+		ball.setPosition(ball.getPosition().x, top_rect.getPosition().y + 35);
 		step_y *= -1;
 	}
 	else if (ball.getPosition().y >= 910)
@@ -61,14 +61,14 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	}
 
 	// If ball hits the left or right barrier, reverse direction
-	if (ball.getGlobalBounds().intersects(right_rect.getGlobalBounds()))
+	if (ball.getPosition().x >= 685)
 	{
-		ball.setPosition(right_rect.getPosition().x - 14, ball.getPosition().y);
+		ball.setPosition(right_rect.getPosition().x - 15, ball.getPosition().y);
 		step_x *= -1;
 	}
-	if (ball.getGlobalBounds().intersects(left_rect.getGlobalBounds()))
+	if (ball.getPosition().x <= 15)
 	{
-		ball.setPosition(left_rect.getPosition().x + 14, ball.getPosition().y);
+		ball.setPosition(left_rect.getPosition().x + 15, ball.getPosition().y);
 		step_x *= -1;
 	}
 }

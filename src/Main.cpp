@@ -1,8 +1,10 @@
 #include "ball.hpp"
+#include "bricks.hpp"
 #include "game.hpp"
 #include "gui.hpp"
 #include "paddle.hpp"
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 int main()
 {
@@ -17,6 +19,9 @@ int main()
 	Ball ball(350, 500, 10, 8, 5);
 	Paddle paddle(700, 14, 350, 855);
 
+	std::vector<Bricks> bricks_vector;
+	long unsigned int max_bricks = 14;
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -27,6 +32,19 @@ int main()
 		}
 
 		Game game(lives_left);
+
+		Bricks bricks(33, 9);
+		if (bricks_vector.size() < max_bricks)
+		{
+			bricks_vector.push_back(bricks);
+		}
+
+		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
+		{
+			bricks_vector[i].drawBricks(window);
+			// bricks_vector[i].setPos();
+		}
+
 		window.clear();
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
@@ -35,7 +53,6 @@ int main()
 		ball.drawTo(window, dt);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
-
 		game.drawLives(window);
 		window.display();
 	}
