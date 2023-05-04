@@ -95,7 +95,10 @@
 		"cinttypes": "cpp",
 		"typeinfo": "cpp",
 		"valarray": "cpp",
-		"variant": "cpp"
+		"variant": "cpp",
+		"strstream": "cpp",
+		"cfenv": "cpp",
+		"complex": "cpp"
 	},
 	// "terminal.integrated.defaultProfile.windows": "Git Bash",
 	"terminal.integrated.env.windows": {

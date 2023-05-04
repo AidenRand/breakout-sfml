@@ -14,6 +14,7 @@ int main()
 	sf::Clock clock;
 	float dt;
 	int lives_left = 0;
+	int score = 0;
 
 	Gui gui(10, 900, 700, 30, 10, 30);
 	Ball ball(350, 500, 10, 8, 5);
@@ -33,7 +34,7 @@ int main()
 				window.close();
 		}
 
-		Game game(lives_left);
+		Game game(lives_left, score);
 		window.clear();
 
 		Bricks bricks(34, 9, x, y);
@@ -62,6 +63,7 @@ int main()
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
 		game.drawLives(window);
+		game.drawScore(window);
 		window.display();
 	}
 
