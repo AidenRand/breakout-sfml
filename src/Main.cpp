@@ -32,6 +32,7 @@ int main()
 		}
 
 		Game game(lives_left);
+		window.clear();
 
 		Bricks bricks(33, 9);
 		if (bricks_vector.size() < max_bricks)
@@ -42,10 +43,9 @@ int main()
 		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
 		{
 			bricks_vector[i].drawBricks(window);
-			// bricks_vector[i].setPos();
+			bricks_vector[i].setPos();
+			std::cout << bricks_vector.size() << "\n";
 		}
-
-		window.clear();
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
 		ball.collision(paddle, gui);

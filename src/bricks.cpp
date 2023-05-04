@@ -15,13 +15,14 @@ Bricks::Bricks(float width, float height)
 	yellow_brick.setFillColor(sf::Color(165, 160, 40));
 }
 
-void Bricks::drawBricks(sf::RenderWindow& window)
-{
-	red_brick.setPosition(x, y);
-	window.draw(red_brick);
-}
-
 void Bricks::setPos()
 {
-	x += 100;
+	x += 5;
+	red_brick.setPosition(x, y);
+}
+
+void Bricks::drawBricks(sf::RenderWindow& window)
+{
+	x += 5;
+	window.draw(red_brick);
 }

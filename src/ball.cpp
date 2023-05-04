@@ -81,7 +81,7 @@ void Ball::killBall(int& lives_left)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = rand() % (165 - 45 + 1);
+			random_angle = rand() % (225 - 360 + 1);
 			std::cout << random_angle << "\n";
 			ball.setPosition(sf::Vector2f(350, 500));
 			lives_left++;

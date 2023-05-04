@@ -7,8 +7,8 @@ class Bricks
 {
 public:
 	Bricks(float width, float height);
-	void drawBricks(sf::RenderWindow& window);
 	void setPos();
+	void drawBricks(sf::RenderWindow& window);
 
 private:
 	sf::RectangleShape red_brick;
