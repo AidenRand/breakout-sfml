@@ -20,7 +20,9 @@ int main()
 	Paddle paddle(700, 14, 350, 855);
 
 	std::vector<Bricks> bricks_vector;
-	long unsigned int max_bricks = 14;
+	long unsigned int max_bricks = 36;
+	float x = 10;
+	float y = 152;
 
 	while (window.isOpen())
 	{
@@ -34,7 +36,13 @@ int main()
 		Game game(lives_left);
 		window.clear();
 
-		Bricks bricks(33, 9);
+		Bricks bricks(34, 9, x, y);
+		x += 38;
+		if (x >= 670)
+		{
+			y += 16;
+			x = 10;
+		}
 		if (bricks_vector.size() < max_bricks)
 		{
 			bricks_vector.push_back(bricks);

@@ -1,6 +1,6 @@
 #include "bricks.hpp"
 
-Bricks::Bricks(float width, float height)
+Bricks::Bricks(float width, float height, float x, float y)
 {
 	red_brick.setSize(sf::Vector2f(width, height));
 	red_brick.setFillColor(sf::Color(162, 30, 30));
@@ -13,16 +13,23 @@ Bricks::Bricks(float width, float height)
 
 	yellow_brick.setSize(sf::Vector2f(width, height));
 	yellow_brick.setFillColor(sf::Color(165, 160, 40));
+
+	xpos = x;
+	ypos = y;
 }
 
 void Bricks::setPos()
 {
-	x += 5;
-	red_brick.setPosition(x, y);
+	red_brick.setPosition(xpos, ypos);
+	orange_brick.setPosition(xpos, ypos + 30);
+	green_brick.setPosition(xpos, ypos + 60);
+	yellow_brick.setPosition(xpos, ypos + 90);
 }
 
 void Bricks::drawBricks(sf::RenderWindow& window)
 {
-	x += 5;
 	window.draw(red_brick);
+	window.draw(orange_brick);
+	window.draw(green_brick);
+	window.draw(yellow_brick);
 }

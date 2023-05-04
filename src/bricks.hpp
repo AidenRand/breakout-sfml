@@ -6,7 +6,7 @@
 class Bricks
 {
 public:
-	Bricks(float width, float height);
+	Bricks(float width, float height, float x, float y);
 	void setPos();
 	void drawBricks(sf::RenderWindow& window);
 
@@ -16,8 +16,8 @@ private:
 	sf::RectangleShape green_brick;
 	sf::RectangleShape yellow_brick;
 
-	float x = 10.0;
-	float y = 150.0;
+	float xpos = 10.0;
+	float ypos = 150.0;
 };
 
 #endif
