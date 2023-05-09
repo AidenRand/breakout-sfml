@@ -1,6 +1,8 @@
 #include "ball.hpp"
+#include "bricks.hpp"
 #include "paddle.hpp"
 #include <gui.hpp>
+#include <vector>
 
 Ball::Ball(float x, float y, float width, float height, float step)
 {
@@ -70,6 +72,37 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	{
 		ball.setPosition(left_rect.getPosition().x + 15, ball.getPosition().y);
 		step_x *= -1;
+	}
+}
+
+void Ball::brickCollision(Bricks& brick_rect)
+{
+	auto red_brick = brick_rect.red_brick;
+	auto orange_brick = brick_rect.orange_brick;
+	auto green_brick = brick_rect.green_brick;
+	auto yellow_brick = brick_rect.yellow_brick;
+	if (ball.getGlobalBounds().intersects(red_brick.getGlobalBounds()))
+	{
+		std::cout << red_brick.getPosition().x
+				  << "\n";
+	}
+
+	if (ball.getGlobalBounds().intersects(orange_brick.getGlobalBounds()))
+	{
+		std::cout << orange_brick.getPosition().x
+				  << "\n";
+	}
+
+	if (ball.getGlobalBounds().intersects(green_brick.getGlobalBounds()))
+	{
+		std::cout << green_brick.getPosition().x
+				  << "\n";
+	}
+
+	if (ball.getGlobalBounds().intersects(yellow_brick.getGlobalBounds()))
+	{
+		std::cout << yellow_brick.getPosition().x
+				  << "\n";
 	}
 }
 

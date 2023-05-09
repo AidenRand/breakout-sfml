@@ -1,4 +1,5 @@
 #include "bricks.hpp"
+#include <vector>
 
 Bricks::Bricks(float width, float height, float x, float y)
 {

@@ -35,7 +35,7 @@ int main()
 		}
 
 		Game game(lives_left, score);
-		window.clear();
+		window.clear(sf::Color(3, 3, 3));
 
 		Bricks bricks(34, 9, x, y);
 		x += 38;
@@ -53,7 +53,7 @@ int main()
 		{
 			bricks_vector[i].drawBricks(window);
 			bricks_vector[i].setPos();
-			std::cout << bricks_vector.size() << "\n";
+			ball.brickCollision(bricks_vector[i]);
 		}
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
