@@ -20,8 +20,10 @@ int main()
 	Ball ball(350, 500, 10, 8, 5);
 	Paddle paddle(700, 14, 350, 855);
 
+	bool collision_check = false;
+
 	std::vector<Bricks> bricks_vector;
-	long unsigned int max_bricks = 36;
+	long unsigned int max_bricks = 144;
 	float x = 10;
 	float y = 152;
 
@@ -41,7 +43,7 @@ int main()
 		x += 38;
 		if (x >= 670)
 		{
-			y += 16;
+			y += 15;
 			x = 10;
 		}
 		if (bricks_vector.size() < max_bricks)
@@ -51,15 +53,19 @@ int main()
 
 		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
 		{
+			bricks_vector[i].changeColor(bricks_vector);
 			bricks_vector[i].drawBricks(window);
 			bricks_vector[i].setPos();
-			ball.brickCollision(bricks_vector[i]);
+			if (ball.brickCollision(bricks_vector[i], collision_check))
+			{
+				bricks_vector[i].kill(bricks_vector[i]);
+			}
 		}
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
 		ball.collision(paddle, gui);
-		ball.killBall(lives_left);
 		ball.drawTo(window, dt);
+		ball.killBall(lives_left);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
 		game.drawLives(window);

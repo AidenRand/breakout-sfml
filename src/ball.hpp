@@ -2,9 +2,9 @@
 #define BALL_HPP
 
 #include "bricks.hpp"
+#include "gui.hpp"
 #include "paddle.hpp"
 #include <SFML/Graphics.hpp>
-#include <gui.hpp>
 #include <vector>
 
 class Ball
@@ -13,15 +13,15 @@ public:
 	Ball(float x, float y, float width, float height, float step);
 	void drawTo(sf::RenderWindow& window, float dt);
 	void collision(Paddle& player_paddle, Gui& gui);
-	void brickCollision(Bricks& brick_rect);
+	bool brickCollision(Bricks& brick_rect, bool& collision_check);
 	void killBall(int& lives_left);
 
 private:
 	sf::RectangleShape ball;
 	sf::Vector2f velocity;
 	float random_angle = rand() % (225 - 360 + 1);
-	int step_x = 500;
-	int step_y = 600;
+	int step_x = 700;
+	int step_y = 800;
 	bool move = false;
 	bool is_dead = false;
 };

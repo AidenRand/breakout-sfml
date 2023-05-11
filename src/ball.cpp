@@ -75,35 +75,55 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	}
 }
 
-void Ball::brickCollision(Bricks& brick_rect)
+bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check)
 {
-	auto red_brick = brick_rect.red_brick;
-	auto orange_brick = brick_rect.orange_brick;
-	auto green_brick = brick_rect.green_brick;
-	auto yellow_brick = brick_rect.yellow_brick;
-	if (ball.getGlobalBounds().intersects(red_brick.getGlobalBounds()))
+	auto bricks = brick_rect.bricks;
+	// auto red_brick = brick_rect.red_brick;
+	// auto orange_brick = brick_rect.orange_brick;
+	// auto green_brick = brick_rect.green_brick;
+	// auto yellow_brick = brick_rect.yellow_brick;
+
+	// Detect collision with red bricks
+	if (ball.getGlobalBounds().intersects(bricks.getGlobalBounds()))
 	{
-		std::cout << red_brick.getPosition().x
+		std::cout << bricks.getPosition().x
 				  << "\n";
+		collision_check = true;
 	}
 
-	if (ball.getGlobalBounds().intersects(orange_brick.getGlobalBounds()))
-	{
-		std::cout << orange_brick.getPosition().x
-				  << "\n";
-	}
+	// // Detect collision with red bricks
+	// if (ball.getGlobalBounds().intersects(red_brick.getGlobalBounds()))
+	// {
+	// 	std::cout << red_brick.getPosition().x
+	// 			  << "\n";
+	// 	collision_check = true;
+	// }
 
-	if (ball.getGlobalBounds().intersects(green_brick.getGlobalBounds()))
-	{
-		std::cout << green_brick.getPosition().x
-				  << "\n";
-	}
+	// // Detect collision with orange bricks
+	// if (ball.getGlobalBounds().intersects(orange_brick.getGlobalBounds()))
+	// {
+	// 	std::cout << orange_brick.getPosition().x
+	// 			  << "\n";
+	// 	collision_check = true;
+	// }
 
-	if (ball.getGlobalBounds().intersects(yellow_brick.getGlobalBounds()))
-	{
-		std::cout << yellow_brick.getPosition().x
-				  << "\n";
-	}
+	// // Detect collision with green bricks
+	// if (ball.getGlobalBounds().intersects(green_brick.getGlobalBounds()))
+	// {
+	// 	std::cout << green_brick.getPosition().x
+	// 			  << "\n";
+	// 	collision_check = true;
+	// }
+
+	// // Detect collision with yellow bricks
+	// if (ball.getGlobalBounds().intersects(yellow_brick.getGlobalBounds()))
+	// {
+	// 	std::cout << yellow_brick.getPosition().x
+	// 			  << "\n";
+	// 	collision_check = true;
+	// }
+	return collision_check;
+	// collision_check = false;
 }
 
 void Ball::killBall(int& lives_left)
