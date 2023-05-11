@@ -6,16 +6,12 @@
 class Bricks
 {
 public:
-	Bricks(float width, float height, float x, float y);
+	Bricks(float width, float height, float x, float y, sf::Color& brick_color);
 	void setPos();
 	void kill(Bricks& brick);
-	void changeColor(std::vector<Bricks>& bricks_vector);
+	void changeColor(std::vector<Bricks>& bricks_vector, sf::Color& brick_color);
 	void drawBricks(sf::RenderWindow& window);
 	sf::RectangleShape bricks;
-	// sf::RectangleShape red_brick;
-	// sf::RectangleShape orange_brick;
-	// sf::RectangleShape green_brick;
-	// sf::RectangleShape yellow_brick;
 
 private:
 	float xpos = 10.0;

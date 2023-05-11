@@ -1,10 +1,10 @@
 #include "bricks.hpp"
 #include <vector>
 
-Bricks::Bricks(float width, float height, float x, float y)
+Bricks::Bricks(float width, float height, float x, float y, sf::Color& brick_color)
 {
 	bricks.setSize(sf::Vector2f(width, height));
-	bricks.setFillColor(sf::Color(162, 30, 30));
+	bricks.setFillColor(brick_color);
 
 	// red_brick.setSize(sf::Vector2f(width, height));
 	// red_brick.setFillColor(sf::Color(162, 30, 30));
@@ -22,12 +22,20 @@ Bricks::Bricks(float width, float height, float x, float y)
 	ypos = y;
 }
 
-void Bricks::changeColor(std::vector<Bricks>& bricks_vector)
+void Bricks::changeColor(std::vector<Bricks>& bricks_vector, sf::Color& brick_color)
 {
-	std::cout << bricks_vector.size() << "\n";
+	// Change brick colors from red, orange, green, yellow
 	if (bricks_vector.size() >= 36)
 	{
-		bricks.setFillColor(sf::Color(46, 118, 70));
+		brick_color = sf::Color(162, 83, 30);
+	}
+	if (bricks_vector.size() >= 72)
+	{
+		brick_color = sf::Color(46, 118, 70);
+	}
+	if (bricks_vector.size() >= 108)
+	{
+		brick_color = sf::Color(165, 160, 40);
 	}
 }
 

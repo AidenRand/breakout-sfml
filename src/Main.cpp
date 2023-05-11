@@ -15,6 +15,7 @@ int main()
 	float dt;
 	int lives_left = 0;
 	int score = 0;
+	sf::Color brick_color = sf::Color(162, 30, 30);
 
 	Gui gui(10, 900, 700, 30, 10, 30);
 	Ball ball(350, 500, 10, 8, 5);
@@ -39,7 +40,7 @@ int main()
 		Game game(lives_left, score);
 		window.clear(sf::Color(3, 3, 3));
 
-		Bricks bricks(34, 9, x, y);
+		Bricks bricks(34, 9, x, y, brick_color);
 		x += 38;
 		if (x >= 670)
 		{
@@ -53,10 +54,11 @@ int main()
 
 		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
 		{
-			bricks_vector[i].changeColor(bricks_vector);
+			bricks_vector[i].changeColor(bricks_vector, brick_color);
 			bricks_vector[i].drawBricks(window);
 			bricks_vector[i].setPos();
-			if (ball.brickCollision(bricks_vector[i], collision_check))
+			ball.brickCollision(bricks_vector[i], collision_check);
+			if (collision_check)
 			{
 				bricks_vector[i].kill(bricks_vector[i]);
 			}
