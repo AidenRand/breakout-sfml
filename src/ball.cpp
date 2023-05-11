@@ -82,9 +82,8 @@ bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check)
 	// Detect collision with red bricks
 	if (ball.getGlobalBounds().intersects(bricks.getGlobalBounds()))
 	{
-		std::cout << bricks.getPosition().x
-				  << "\n";
 		collision_check = true;
+		step_y *= -1;
 	}
 	else
 	{

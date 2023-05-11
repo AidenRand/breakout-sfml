@@ -60,7 +60,7 @@ int main()
 			ball.brickCollision(bricks_vector[i], collision_check);
 			if (collision_check)
 			{
-				bricks_vector[i].kill(bricks_vector[i]);
+				bricks_vector[i].kill(bricks_vector[i], x, y);
 			}
 		}
 		dt = clock.restart().asSeconds();
