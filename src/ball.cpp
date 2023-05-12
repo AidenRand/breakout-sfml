@@ -1,16 +1,16 @@
 #include "ball.hpp"
 #include "bricks.hpp"
+#include "gui.hpp"
 #include "paddle.hpp"
-#include <gui.hpp>
+#include <math.h>
 #include <vector>
 
-Ball::Ball(float x, float y, float width, float height, float step)
+Ball::Ball(float x, float y, float width, float height)
 {
 	ball.setFillColor(sf::Color(150, 150, 150));
 	ball.setSize(sf::Vector2f(width, height));
 	ball.setPosition(sf::Vector2f(x, y));
 	ball.setOrigin(width / 2, height / 2);
-	std::cout << step;
 }
 
 void Ball::drawTo(sf::RenderWindow& window, float dt)
@@ -19,6 +19,8 @@ void Ball::drawTo(sf::RenderWindow& window, float dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		move = true;
+		step_x = 400;
+		step_y = 500;
 	}
 
 	if (move == true)
@@ -42,6 +44,8 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds()))
 	{
 		ball.setPosition(ball.getPosition().x, paddle.getPosition().y - 10);
+		step_x = 700;
+		step_y = 800;
 		step_y *= -1;
 		int randSide = rand() % 2;
 		if (randSide == 1)
@@ -75,7 +79,7 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	}
 }
 
-bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check)
+bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
 {
 	auto bricks = brick_rect.bricks;
 
@@ -84,6 +88,7 @@ bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check)
 	{
 		collision_check = true;
 		step_y *= -1;
+		score += 1;
 	}
 	else
 	{
@@ -101,7 +106,7 @@ void Ball::killBall(int& lives_left)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = rand() % (225 - 360 + 1);
+			random_angle = rand() % (245 - 345 + 1);
 			std::cout << random_angle << "\n";
 			ball.setPosition(sf::Vector2f(350, 500));
 			lives_left++;

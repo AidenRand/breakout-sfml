@@ -18,7 +18,7 @@ int main()
 	sf::Color brick_color = sf::Color(162, 30, 30);
 
 	Gui gui(10, 900, 700, 30, 10, 30);
-	Ball ball(350, 500, 10, 8, 5);
+	Ball ball(350, 500, 10, 8);
 	Paddle paddle(700, 14, 350, 855);
 
 	bool collision_check = false;
@@ -57,10 +57,10 @@ int main()
 			bricks_vector[i].changeColor(bricks_vector, brick_color);
 			bricks_vector[i].drawBricks(window);
 			bricks_vector[i].setPos();
-			ball.brickCollision(bricks_vector[i], collision_check);
+			ball.brickCollision(bricks_vector[i], collision_check, score);
 			if (collision_check)
 			{
-				bricks_vector[i].kill(bricks_vector[i], x, y);
+				bricks_vector[i].kill(bricks_vector[i]);
 			}
 		}
 		dt = clock.restart().asSeconds();
