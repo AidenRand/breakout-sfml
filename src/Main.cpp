@@ -40,9 +40,11 @@ int main()
 				window.close();
 		}
 
-		Game game(lives_left, score);
 		window.clear(sf::Color(3, 3, 3));
 
+		Game game(lives_left, score);
+
+		// Create Brick rows and columns
 		Bricks bricks(34, 9, x, y, brick_color);
 		x += 38;
 		if (x >= 670)
@@ -50,6 +52,8 @@ int main()
 			y += 15;
 			x = 10;
 		}
+
+		// Push bricks to brick vector
 		if (bricks_vector.size() < max_bricks)
 		{
 			bricks_vector.push_back(bricks);
@@ -63,7 +67,7 @@ int main()
 			ball.brickCollision(bricks_vector[i], collision_check, score);
 			if (collision_check)
 			{
-				bricks_vector[i].kill(bricks_vector[i]);
+				bricks_vector[i].kill();
 			}
 		}
 
@@ -75,6 +79,10 @@ int main()
 				lives_left = 0;
 				paddle_width = 700;
 				paddle_height = 14;
+				bricks_vector.clear();
+				x = 10;
+				y = 152;
+				end_game = false;
 			}
 		}
 		dt = clock.restart().asSeconds();
