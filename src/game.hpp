@@ -1,24 +1,14 @@
-#ifndef GAME_CPP
-#define GAME_CPP
+#ifndef GAME_HPP
+#define GAME_HPP
 
+#include "ball.hpp"
+#include "bricks.hpp"
+#include "gui.hpp"
 #include "paddle.hpp"
+#include "text.hpp"
 #include <SFML/Graphics.hpp>
+#include <vector>
 
-class Game
-{
-public:
-	Game(int& lives_left, int& score_num);
-	void drawLives(sf::RenderWindow& window);
-	void drawScore(sf::RenderWindow& window);
-	void endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game);
-
-private:
-	sf::Text turn_text;
-	sf::Text lives_text;
-	sf::Text score_text;
-	sf::Text score2_text;
-	sf::Text end_text;
-	sf::Font font;
-};
+void gameFunction(sf::RenderWindow& window, float window_width, float window_height);
 
 #endif

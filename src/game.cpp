@@ -1,75 +1,126 @@
+#include "game.hpp"
+
+#include "ball.hpp"
+#include "bricks.hpp"
+#include "gui.hpp"
 #include "paddle.hpp"
-#include <algorithm>
-#include <game.hpp>
-#include <iostream>
-#include <string>
+#include "text.hpp"
+#include <SFML/Graphics.hpp>
+#include <vector>
 
-Game::Game(int& lives_left, int& score_num)
+void gameFunction(sf::RenderWindow& window, float window_width, float window_height)
 {
-	turn_text.setString("1");
-	turn_text.setPosition(35, 31);
+	std::srand(time(NULL));
+	sf::Clock clock;
+	float dt;
+	int lives_left = 0;
+	int score = 0;
+	bool end_game = false;
 
-	std::string lives_left_text = std::to_string(lives_left);
-	lives_text.setString(lives_left_text);
-	lives_text.setPosition(sf::Vector2f(490, 31));
+	// Create window borders
+	float side_width = 10;
+	float side_height = window_height;
+	float top_width = window_width;
+	float top_height = 30;
+	float color_height = 10;
+	float color_width = 30;
+	Gui gui(side_width, side_height, top_width, top_height, color_height, color_width);
 
-	std::string score_string = std::to_string(score_num);
+	// Generate score, lives_left, and other text on screen
+	Text text(lives_left, score);
 
-	size_t n = 3;
-	int precision = n - std::min(n, score_string.size());
-	std::string score = std::string(precision, '0').append(score_string);
-	score_text.setString(score);
-	score_text.setPosition(80, 93);
+	// Create ball and set paddle / ball collision to false
+	float ball_x = 350;
+	float ball_y = 500;
+	float ball_width = 10;
+	float ball_height = 8;
+	Ball ball(ball_x, ball_y, ball_width, ball_height);
+	bool collision_check = false;
 
-	score2_text.setString("000");
-	score2_text.setPosition(540, 93);
-}
+	// Create paddle
+	float paddle_width = 700;
+	float paddle_height = 14;
+	float paddle_x = 350;
+	float paddle_y = 855;
+	Paddle paddle(paddle_x, paddle_y, paddle_width, paddle_height);
 
-void Game::drawLives(sf::RenderWindow& window)
-{
-	if (!font.loadFromFile("content/8_bit_party.ttf"))
+	// Create vector which stores bricks and create brick variables
+	std::vector<Bricks> bricks_vector;
+	long unsigned int max_bricks = 144;
+	sf::Color brick_color = sf::Color(162, 30, 30);
+	float brick_x = 10;
+	float brick_y = 152;
+	float brick_width = 34;
+	float brick_height = 9;
+
+	while (window.isOpen())
 	{
-		std::cout << "ERROR:: Cannot load font file" << std::endl;
-		system("pause");
-	}
-	turn_text.setFont(font);
-	turn_text.setCharacterSize(55);
-	turn_text.setFillColor(sf::Color(180, 180, 180));
-	window.draw(turn_text);
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
 
-	lives_text.setFont(font);
-	lives_text.setCharacterSize(55);
-	lives_text.setFillColor(sf::Color(180, 180, 180));
-	window.draw(lives_text);
-}
+		window.clear(sf::Color(3, 3, 3));
 
-void Game::drawScore(sf::RenderWindow& window)
-{
-	if (!font.loadFromFile("content/8_bit_party.ttf"))
-	{
-		std::cout << "ERROR:: Cannot load font file" << std::endl;
-		system("pause");
-	}
-	score_text.setFont(font);
-	score_text.setCharacterSize(55);
-	score_text.setFillColor(sf::Color(180, 180, 180));
-	window.draw(score_text);
+		// Create Bricks
+		Bricks bricks(brick_width, brick_height, brick_x, brick_y, brick_color);
 
-	score2_text.setFont(font);
-	score2_text.setCharacterSize(55);
-	score2_text.setFillColor(sf::Color(180, 180, 180));
-	window.draw(score2_text);
-}
+		// Create brick rows and columns
+		brick_x += 38;
+		if (brick_x >= window_width - brick_width)
+		{
+			brick_y += 15;
+			brick_x = 10;
+		}
 
-void Game::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game)
-{
-	if (lives_left >= 4)
-	{
-		end_text.setFont(font);
-		end_text.setString("PRESS SPACE TO PLAY AGAIN");
-		end_text.setFillColor(sf::Color(200, 200, 200));
-		end_text.setPosition(sf::Vector2f(250, 450));
-		window.draw(end_text);
-		end_game = true;
+		if (bricks_vector.size() < max_bricks)
+		{
+			bricks_vector.push_back(bricks);
+		}
+
+		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
+		{
+			bricks_vector[i].changeColor(bricks_vector, brick_color);
+			bricks_vector[i].drawBricks(window);
+			bricks_vector[i].setPos();
+
+			// Check if the ball has collided with a brick and if so destroy
+			// the brick, increment the score, and reverse the balls y direction
+			ball.brickCollision(bricks_vector[i], collision_check, score);
+			if (collision_check)
+			{
+				bricks_vector[i].kill();
+			}
+		}
+
+		// If the game has ended, give the option to reset the game
+		// by pressing space which resets all values
+		if (end_game)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				score = 0;
+				lives_left = 0;
+				paddle_width = 700;
+				paddle_height = 14;
+				bricks_vector.clear();
+				brick_x = 10;
+				brick_y = 152;
+				end_game = false;
+			}
+		}
+		dt = clock.restart().asSeconds();
+		gui.drawBorders(window);
+		ball.collision(paddle, gui);
+		ball.drawTo(window, dt);
+		ball.killBall(lives_left);
+		paddle.drawTo(window);
+		paddle.movePaddle(dt);
+		text.drawLives(window);
+		text.drawScore(window);
+		text.endGameText(window, lives_left, end_game);
+		window.display();
 	}
 }

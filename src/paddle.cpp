@@ -1,6 +1,6 @@
 #include "paddle.hpp"
 
-Paddle::Paddle(float width, float height, float x, float y)
+Paddle::Paddle(float x, float y, float width, float height)
 {
 	paddle_width = width;
 	paddle_height = height;
