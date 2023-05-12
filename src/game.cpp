@@ -1,3 +1,4 @@
+#include "paddle.hpp"
 #include <algorithm>
 #include <game.hpp>
 #include <iostream>
@@ -58,4 +59,17 @@ void Game::drawScore(sf::RenderWindow& window)
 	score2_text.setCharacterSize(55);
 	score2_text.setFillColor(sf::Color(180, 180, 180));
 	window.draw(score2_text);
+}
+
+void Game::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game)
+{
+	if (lives_left >= 4)
+	{
+		end_text.setFont(font);
+		end_text.setString("PRESS SPACE TO PLAY AGAIN");
+		end_text.setFillColor(sf::Color(200, 200, 200));
+		end_text.setPosition(sf::Vector2f(250, 450));
+		window.draw(end_text);
+		end_game = true;
+	}
 }

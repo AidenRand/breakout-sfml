@@ -15,16 +15,19 @@ int main()
 	float dt;
 	int lives_left = 0;
 	int score = 0;
-	sf::Color brick_color = sf::Color(162, 30, 30);
+	bool end_game = false;
 
 	Gui gui(10, 900, 700, 30, 10, 30);
-	Ball ball(350, 500, 10, 8);
-	Paddle paddle(700, 14, 350, 855);
-
 	bool collision_check = false;
+	Ball ball(350, 500, 10, 8);
+
+	float paddle_width = 700;
+	float paddle_height = 14;
+	Paddle paddle(paddle_width, paddle_height, 350, 855);
 
 	std::vector<Bricks> bricks_vector;
 	long unsigned int max_bricks = 144;
+	sf::Color brick_color = sf::Color(162, 30, 30);
 	float x = 10;
 	float y = 152;
 
@@ -63,6 +66,17 @@ int main()
 				bricks_vector[i].kill(bricks_vector[i]);
 			}
 		}
+
+		if (end_game)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				score = 0;
+				lives_left = 0;
+				paddle_width = 700;
+				paddle_height = 14;
+			}
+		}
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
 		ball.collision(paddle, gui);
@@ -72,6 +86,7 @@ int main()
 		paddle.movePaddle(dt);
 		game.drawLives(window);
 		game.drawScore(window);
+		game.endGameText(window, lives_left, end_game);
 		window.display();
 	}
 
