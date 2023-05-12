@@ -21,6 +21,8 @@ void Paddle::movePaddle(float dt)
 	sf::Vector2f velocity;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
+		paddle_width = 50;
+		paddle_height = 14;
 		paddle.setSize(sf::Vector2f(paddle_width, paddle_height));
 		paddle.setOrigin(25, 7);
 		move = true;
