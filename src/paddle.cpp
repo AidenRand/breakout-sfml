@@ -2,7 +2,9 @@
 
 Paddle::Paddle(float width, float height, float x, float y)
 {
-	paddle.setSize(sf::Vector2f(width, height));
+	paddle_width = width;
+	paddle_height = height;
+	paddle.setSize(sf::Vector2f(paddle_width, paddle_height));
 	paddle.setOrigin(width / 2, height / 2);
 	paddle.setPosition(sf::Vector2f(x, y));
 	paddle.setFillColor(sf::Color(30, 100, 162));
@@ -19,8 +21,8 @@ void Paddle::movePaddle(float dt)
 	sf::Vector2f velocity;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-		paddle.setSize(sf::Vector2f(50, 14));
-		paddle.setOrigin(40, 7);
+		paddle.setSize(sf::Vector2f(paddle_width, paddle_height));
+		paddle.setOrigin(25, 7);
 		move = true;
 	}
 

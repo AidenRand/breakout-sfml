@@ -19,8 +19,6 @@ void Ball::drawTo(sf::RenderWindow& window, float dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		move = true;
-		step_x = 400;
-		step_y = 500;
 	}
 
 	if (move == true)

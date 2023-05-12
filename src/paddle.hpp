@@ -10,6 +10,8 @@ public:
 	void drawTo(sf::RenderWindow& window);
 	void movePaddle(float dt);
 	sf::RectangleShape paddle;
+	float paddle_width;
+	float paddle_height;
 
 private:
 	int step_x = 700;
