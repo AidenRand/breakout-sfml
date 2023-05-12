@@ -6,7 +6,7 @@
 class Paddle
 {
 public:
-	Paddle(float width, float height, float x, float y);
+	Paddle(float x, float y, float width, float height);
 	void drawTo(sf::RenderWindow& window);
 	void movePaddle(float dt);
 	sf::RectangleShape paddle;
