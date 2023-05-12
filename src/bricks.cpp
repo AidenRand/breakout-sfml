@@ -1,4 +1,5 @@
 #include "bricks.hpp"
+#include "ball.hpp"
 #include <vector>
 
 Bricks::Bricks(float width, float height, float x, float y, sf::Color& brick_color)
@@ -37,10 +38,9 @@ void Bricks::drawBricks(sf::RenderWindow& window)
 	window.draw(bricks);
 }
 
-void Bricks::kill(Bricks& brick, float& x, float& y)
+void Bricks::kill(Bricks& brick)
 {
 	auto yellow = brick.bricks;
 	xpos = 0;
 	ypos = 0;
-	std::cout << x << y;
 }
