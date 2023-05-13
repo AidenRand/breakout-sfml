@@ -68,7 +68,7 @@ void Text::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game
 		end_text.setFont(font);
 		end_text.setString("PRESS SPACE TO PLAY AGAIN");
 		end_text.setFillColor(sf::Color(200, 200, 200));
-		end_text.setPosition(sf::Vector2f(250, 450));
+		end_text.setPosition(sf::Vector2f(140, 450));
 		window.draw(end_text);
 		end_game = true;
 	}

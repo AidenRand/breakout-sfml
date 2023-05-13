@@ -104,7 +104,7 @@ void Ball::killBall(int& lives_left)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = rand() % (245 - 345 + 1);
+			random_angle = (rand() % -60) + (-260);
 			ball.setPosition(sf::Vector2f(350, 500));
 			lives_left++;
 		}

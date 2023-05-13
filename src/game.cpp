@@ -26,9 +26,6 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 	float color_width = 30;
 	Gui gui(side_width, side_height, top_width, top_height, color_height, color_width);
 
-	// Generate score, lives_left, and other text on screen
-	Text text(lives_left, score);
-
 	// Create ball and set paddle / ball collision to false
 	float ball_x = 350;
 	float ball_y = 500;
@@ -66,6 +63,9 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 
 		// Create Bricks
 		Bricks bricks(brick_width, brick_height, brick_x, brick_y, brick_color);
+
+		// Generate score, lives_left, and other text on screen
+		Text text(lives_left, score);
 
 		// Create brick rows and columns
 		brick_x += 38;
