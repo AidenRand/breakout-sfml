@@ -1,10 +1,10 @@
 #include "paddle.hpp"
 #include <algorithm>
 #include <iostream>
+#include <logic.hpp>
 #include <string>
-#include <text.hpp>
 
-Text::Text(int& lives_left, int& score_num)
+Logic::Logic(int& lives_left, int& score_num)
 {
 	turn_text.setString("1");
 	turn_text.setPosition(35, 31);
@@ -25,7 +25,7 @@ Text::Text(int& lives_left, int& score_num)
 	score2_text.setPosition(540, 93);
 }
 
-void Text::drawLives(sf::RenderWindow& window)
+void Logic::drawLives(sf::RenderWindow& window)
 {
 	if (!font.loadFromFile("content/8_bit_party.ttf"))
 	{
@@ -43,7 +43,7 @@ void Text::drawLives(sf::RenderWindow& window)
 	window.draw(lives_text);
 }
 
-void Text::drawScore(sf::RenderWindow& window)
+void Logic::drawScore(sf::RenderWindow& window)
 {
 	if (!font.loadFromFile("content/8_bit_party.ttf"))
 	{
@@ -61,7 +61,7 @@ void Text::drawScore(sf::RenderWindow& window)
 	window.draw(score2_text);
 }
 
-void Text::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game)
+void Logic::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game)
 {
 	if (lives_left >= 4)
 	{
@@ -71,5 +71,20 @@ void Text::endGameText(sf::RenderWindow& window, int& lives_left, bool& end_game
 		end_text.setPosition(sf::Vector2f(140, 450));
 		window.draw(end_text);
 		end_game = true;
+	}
+}
+
+void Logic::endGame(int& score, int& lives_left, float& paddle_width, float& paddle_height, float& brick_x, float& brick_y, bool& end_game)
+{
+	// If space is pressed restart game variables
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		score = 0;
+		lives_left = 0;
+		paddle_width = 700;
+		paddle_height = 14;
+		brick_x = 10;
+		brick_y = 152;
+		end_game = false;
 	}
 }

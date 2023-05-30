@@ -3,8 +3,8 @@
 #include "ball.hpp"
 #include "bricks.hpp"
 #include "gui.hpp"
+#include "logic.hpp"
 #include "paddle.hpp"
-#include "text.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -65,7 +65,7 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		Bricks bricks(brick_width, brick_height, brick_x, brick_y, brick_color);
 
 		// Generate score, lives_left, and other text on screen
-		Text text(lives_left, score);
+		Logic logic(lives_left, score);
 
 		// Create brick rows and columns
 		brick_x += 38;
@@ -80,18 +80,18 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 			bricks_vector.push_back(bricks);
 		}
 
-		for (long unsigned int i = 0; i != bricks_vector.size(); i++)
+		for (auto& brick : bricks_vector)
 		{
-			bricks_vector[i].changeColor(bricks_vector, brick_color);
-			bricks_vector[i].drawBricks(window);
-			bricks_vector[i].setPos();
+			brick.changeColor(bricks_vector, brick_color);
+			brick.drawBricks(window);
+			brick.setPos();
 
 			// Check if the ball has collided with a brick and if so destroy
 			// the brick, increment the score, and reverse the balls y direction
-			ball.brickCollision(bricks_vector[i], collision_check, score);
+			ball.brickCollision(brick, collision_check, score);
 			if (collision_check)
 			{
-				bricks_vector[i].kill();
+				brick.kill();
 			}
 		}
 
@@ -99,18 +99,10 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		// by pressing space which resets all values
 		if (end_game)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			{
-				score = 0;
-				lives_left = 0;
-				paddle_width = 700;
-				paddle_height = 14;
-				bricks_vector.clear();
-				brick_x = 10;
-				brick_y = 152;
-				end_game = false;
-			}
+			logic.endGame(score, lives_left, paddle_width, paddle_height, brick_x, brick_y, end_game);
+			bricks_vector.clear();
 		}
+
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
 		ball.collision(paddle, gui);
@@ -118,9 +110,9 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		ball.killBall(lives_left);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
-		text.drawLives(window);
-		text.drawScore(window);
-		text.endGameText(window, lives_left, end_game);
+		logic.drawLives(window);
+		logic.drawScore(window);
+		logic.endGameText(window, lives_left, end_game);
 		window.display();
 	}
 }

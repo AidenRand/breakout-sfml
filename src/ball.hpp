@@ -19,11 +19,12 @@ public:
 private:
 	sf::RectangleShape ball;
 	sf::Vector2f velocity;
-	float random_angle = (rand() % 60) + 260;
+	float random_angle = (rand() % 60) + 120;
 	int step_x = 400;
 	int step_y = 500;
 	bool move = false;
 	bool is_dead = false;
+	int rand_side;
 };
 
 #endif

@@ -4,8 +4,8 @@
 #include "ball.hpp"
 #include "bricks.hpp"
 #include "gui.hpp"
+#include "logic.hpp"
 #include "paddle.hpp"
-#include "text.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 

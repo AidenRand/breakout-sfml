@@ -45,8 +45,8 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 		step_x = 700;
 		step_y = 800;
 		step_y *= -1;
-		int randSide = rand() % 2;
-		if (randSide == 1)
+		rand_side = rand() % 2;
+		if (rand_side == 1)
 		{
 			velocity.y *= -1;
 		}
@@ -104,7 +104,7 @@ void Ball::killBall(int& lives_left)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			random_angle = (rand() % -60) + (-260);
+			random_angle = (rand() % 60) + 120;
 			ball.setPosition(sf::Vector2f(350, 500));
 			lives_left++;
 		}
