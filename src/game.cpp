@@ -1,5 +1,4 @@
 #include "game.hpp"
-
 #include "ball.hpp"
 #include "bricks.hpp"
 #include "gui.hpp"
@@ -68,9 +67,6 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		// Create Bricks
 		Bricks bricks(brick_width, brick_height, brick_x, brick_y, brick_color);
 
-		// Generate score, lives_left, and other text on screen
-		Logic logic(lives_left, score);
-
 		// Create brick rows and columns
 		brick_x += brick_column_spacing;
 		if (brick_x >= window_width - brick_width)
@@ -117,14 +113,6 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 			ball_paddle_collision = false;
 		}
 
-		// If the game has ended, give the option to reset the game
-		// by pressing space which resets all values
-		if (end_game)
-		{
-			logic.endGame(score, lives_left, paddle_width, paddle_height, brick_x, brick_y, end_game);
-			bricks_vector.clear();
-		}
-
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
 		ball.borderCollision(gui, ball_border_collision);
@@ -133,9 +121,19 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		ball.killBall(lives_left);
 		paddle.drawTo(window);
 		paddle.movePaddle(dt);
+
+		// Generate score, lives_left, and other text on screen
+		Logic logic(lives_left, score);
 		logic.drawLives(window);
 		logic.drawScore(window);
 		logic.endGameText(window, lives_left, end_game);
+
+		// If the game has ended, run endGame function and reset brick vector
+		if (end_game)
+		{
+			logic.endGame(score, lives_left, paddle_width, paddle_height, brick_x, brick_y, end_game);
+			bricks_vector.clear();
+		}
 		window.display();
 	}
 }
