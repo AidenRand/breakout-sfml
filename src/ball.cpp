@@ -65,6 +65,20 @@ void Ball::borderCollision(Gui& gui, bool& ball_border_collision)
 	}
 }
 
+void Ball::getBorderCollisionSound()
+{
+	if (!ball_border_buffer.loadFromFile("content/ball_border_sound.wav"))
+	{
+		std::cout << "ERROR: Could not load ball_border collision sound";
+	}
+	ball_border_sound.setBuffer(ball_border_buffer);
+}
+
+void Ball::playBorderCollisionSound()
+{
+	ball_border_sound.play();
+}
+
 void Ball::paddleCollision(Paddle& player_paddle, bool& ball_paddle_collision)
 {
 
@@ -124,7 +138,7 @@ void Ball::getBrickCollisionSound()
 	// Fetch brick collision sound
 	if (!ball_brick_buffer.loadFromFile("content/brick_ball_sound.wav"))
 	{
-		std::cout << "ERROR: could not load ball_brick collision sound" << std::endl;
+		std::cout << "ERROR: could not load ball_brick collision sound";
 	}
 	ball_brick_sound.setBuffer(ball_brick_buffer);
 }

@@ -99,6 +99,14 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 			}
 		}
 
+		// If ball collides with border, player collision sound
+		if (ball_border_collision)
+		{
+			ball.getBorderCollisionSound();
+			ball.playBorderCollisionSound();
+			ball_border_collision = false;
+		}
+
 		// If the game has ended, give the option to reset the game
 		// by pressing space which resets all values
 		if (end_game)
