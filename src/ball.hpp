@@ -12,9 +12,10 @@ class Ball
 public:
 	Ball(float x, float y, float width, float height);
 	void drawTo(sf::RenderWindow& window, float dt);
-	void collision(Paddle& player_paddle, Gui& gui);
-	void brickCollision(Bricks& brick_rect, bool& collision_check, int& score);
 	void killBall(int& lives_left);
+	void borderCollision(Gui& gui, bool& ball_border_collision);
+	void paddleCollision(Paddle& player_paddle, bool& ball_paddle_collision);
+	void brickCollision(Bricks& brick_rect, bool& collision_check, int& score);
 	void getBrickCollisionSound();
 	void playBrickCollisionSound();
 

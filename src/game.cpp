@@ -33,6 +33,8 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 	float ball_height = 8;
 	Ball ball(ball_x, ball_y, ball_width, ball_height);
 	bool collision_check = false;
+	bool ball_paddle_collision = false;
+	bool ball_border_collision = false;
 
 	// Create paddle
 	float paddle_width = 700;
@@ -107,7 +109,8 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 
 		dt = clock.restart().asSeconds();
 		gui.drawBorders(window);
-		ball.collision(paddle, gui);
+		ball.borderCollision(gui, ball_border_collision);
+		ball.paddleCollision(paddle, ball_paddle_collision);
 		ball.drawTo(window, dt);
 		ball.killBall(lives_left);
 		paddle.drawTo(window);

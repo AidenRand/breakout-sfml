@@ -31,32 +31,17 @@ void Ball::drawTo(sf::RenderWindow& window, float dt)
 	}
 }
 
-void Ball::collision(Paddle& player_paddle, Gui& gui)
+void Ball::borderCollision(Gui& gui, bool& ball_border_collision)
 {
-	auto paddle = player_paddle.paddle;
 	auto top_rect = gui.top_border;
 	auto left_rect = gui.left_border;
 	auto right_rect = gui.right_border;
 
-	// If ball collides with paddle reverse y direction and randomly
-	// reverse x direction
-	if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds()))
-	{
-		ball.setPosition(ball.getPosition().x, paddle.getPosition().y - 10);
-		step_x = 700;
-		step_y = 800;
-		step_y *= -1;
-		rand_side = rand() % 2;
-		if (rand_side == 1)
-		{
-			velocity.y *= -1;
-		}
-	}
-
 	// If ball hits top border reverse direction.
 	// If goes beyond bottom barrier, set is_dead to true
-	if (ball.getGlobalBounds().intersects(top_rect.getGlobalBounds()))
+	if (ball.getPosition().y < 0)
 	{
+		ball_border_collision = true;
 		ball.setPosition(ball.getPosition().x, top_rect.getPosition().y + 35);
 		step_y *= -1;
 	}
@@ -68,13 +53,36 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	// If ball hits the left or right barrier, reverse direction
 	if (ball.getPosition().x >= 685)
 	{
+		ball_border_collision = true;
 		ball.setPosition(right_rect.getPosition().x - 15, ball.getPosition().y);
 		step_x *= -1;
 	}
 	if (ball.getPosition().x <= 15)
 	{
+		ball_border_collision = true;
 		ball.setPosition(left_rect.getPosition().x + 15, ball.getPosition().y);
 		step_x *= -1;
+	}
+}
+
+void Ball::paddleCollision(Paddle& player_paddle, bool& ball_paddle_collision)
+{
+
+	auto paddle = player_paddle.paddle;
+	// If ball collides with paddle reverse y direction and randomly
+	// reverse x direction
+	if (ball.getGlobalBounds().intersects(paddle.getGlobalBounds()))
+	{
+		ball.setPosition(ball.getPosition().x, paddle.getPosition().y - 10);
+		ball_paddle_collision = true;
+		step_x = 700;
+		step_y = 800;
+		step_y *= -1;
+		rand_side = rand() % 2;
+		if (rand_side == 1)
+		{
+			velocity.y *= -1;
+		}
 	}
 }
 
