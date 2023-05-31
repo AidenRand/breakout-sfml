@@ -13,8 +13,10 @@ public:
 	Ball(float x, float y, float width, float height);
 	void drawTo(sf::RenderWindow& window, float dt);
 	void collision(Paddle& player_paddle, Gui& gui);
-	bool brickCollision(Bricks& brick_rect, bool& collision_check, int& score);
+	void brickCollision(Bricks& brick_rect, bool& collision_check, int& score);
 	void killBall(int& lives_left);
+	void getBrickCollisionSound();
+	void playBrickCollisionSound();
 
 private:
 	sf::RectangleShape ball;
@@ -25,6 +27,9 @@ private:
 	bool move = false;
 	bool is_dead = false;
 	int rand_side;
+
+	sf::SoundBuffer ball_brick_buffer;
+	sf::Sound ball_brick_sound;
 };
 
 #endif

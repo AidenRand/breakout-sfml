@@ -91,6 +91,8 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 			ball.brickCollision(brick, collision_check, score);
 			if (collision_check)
 			{
+				ball.getBrickCollisionSound();
+				ball.playBrickCollisionSound();
 				brick.kill();
 			}
 		}

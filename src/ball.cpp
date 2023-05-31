@@ -2,6 +2,7 @@
 #include "bricks.hpp"
 #include "gui.hpp"
 #include "paddle.hpp"
+#include <SFML/Audio.hpp>
 #include <math.h>
 #include <vector>
 
@@ -77,7 +78,7 @@ void Ball::collision(Paddle& player_paddle, Gui& gui)
 	}
 }
 
-bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
+void Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
 {
 	auto bricks = brick_rect.bricks;
 
@@ -92,8 +93,6 @@ bool Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
 	{
 		collision_check = false;
 	}
-
-	return collision_check;
 }
 
 void Ball::killBall(int& lives_left)
@@ -110,4 +109,19 @@ void Ball::killBall(int& lives_left)
 		}
 	}
 	is_dead = false;
+}
+
+void Ball::getBrickCollisionSound()
+{
+	// Fetch brick collision sound
+	if (!ball_brick_buffer.loadFromFile("content/brick_ball_sound.wav"))
+	{
+		std::cout << "ERROR: could not load ball_brick collision sound" << std::endl;
+	}
+	ball_brick_sound.setBuffer(ball_brick_buffer);
+}
+
+void Ball::playBrickCollisionSound()
+{
+	ball_brick_sound.play();
 }
