@@ -51,6 +51,8 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 	float brick_y = 152;
 	float brick_width = 34;
 	float brick_height = 9;
+	int brick_column_spacing = 38;
+	int brick_row_spacing = 15;
 
 	while (window.isOpen())
 	{
@@ -70,10 +72,10 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 		Logic logic(lives_left, score);
 
 		// Create brick rows and columns
-		brick_x += 38;
+		brick_x += brick_column_spacing;
 		if (brick_x >= window_width - brick_width)
 		{
-			brick_y += 15;
+			brick_y += brick_row_spacing;
 			brick_x = 10;
 		}
 
@@ -99,12 +101,20 @@ void gameFunction(sf::RenderWindow& window, float window_width, float window_hei
 			}
 		}
 
-		// If ball collides with border, player collision sound
+		// If ball collides with border, play border collision sound
 		if (ball_border_collision)
 		{
 			ball.getBorderCollisionSound();
 			ball.playBorderCollisionSound();
 			ball_border_collision = false;
+		}
+
+		// If ball collides with paddle, play paddle sound
+		if (ball_paddle_collision)
+		{
+			ball.getPaddleCollisionSound();
+			ball.playPaddleCollisionSound();
+			ball_paddle_collision = false;
 		}
 
 		// If the game has ended, give the option to reset the game

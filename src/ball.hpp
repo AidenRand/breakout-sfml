@@ -36,6 +36,9 @@ private:
 	sf::SoundBuffer ball_border_buffer;
 	sf::Sound ball_border_sound;
 
+	sf::SoundBuffer ball_paddle_buffer;
+	sf::Sound ball_paddle_sound;
+
 	sf::SoundBuffer ball_brick_buffer;
 	sf::Sound ball_brick_sound;
 };

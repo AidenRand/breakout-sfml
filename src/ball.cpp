@@ -67,6 +67,7 @@ void Ball::borderCollision(Gui& gui, bool& ball_border_collision)
 
 void Ball::getBorderCollisionSound()
 {
+	// Fetch border collision sound
 	if (!ball_border_buffer.loadFromFile("content/ball_border_sound.wav"))
 	{
 		std::cout << "ERROR: Could not load ball_border collision sound";
@@ -100,6 +101,21 @@ void Ball::paddleCollision(Paddle& player_paddle, bool& ball_paddle_collision)
 	}
 }
 
+void Ball::getPaddleCollisionSound()
+{
+	// Fetch paddle collision sound
+	if (!ball_paddle_buffer.loadFromFile("content/ball_paddle_sound.wav"))
+	{
+		std::cout << "ERROR: Could not load ball_paddle collision sound";
+	}
+	ball_paddle_sound.setBuffer(ball_paddle_buffer);
+}
+
+void Ball::playPaddleCollisionSound()
+{
+	ball_paddle_sound.play();
+}
+
 void Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
 {
 	auto bricks = brick_rect.bricks;
@@ -117,6 +133,21 @@ void Ball::brickCollision(Bricks& brick_rect, bool& collision_check, int& score)
 	}
 }
 
+void Ball::getBrickCollisionSound()
+{
+	// Fetch brick collision sound
+	if (!ball_brick_buffer.loadFromFile("content/ball_brick_sound.wav"))
+	{
+		std::cout << "ERROR: could not load ball_brick collision sound";
+	}
+	ball_brick_sound.setBuffer(ball_brick_buffer);
+}
+
+void Ball::playBrickCollisionSound()
+{
+	ball_brick_sound.play();
+}
+
 void Ball::killBall(int& lives_left)
 {
 	// If the ball is off the screen,
@@ -131,19 +162,4 @@ void Ball::killBall(int& lives_left)
 		}
 	}
 	is_dead = false;
-}
-
-void Ball::getBrickCollisionSound()
-{
-	// Fetch brick collision sound
-	if (!ball_brick_buffer.loadFromFile("content/brick_ball_sound.wav"))
-	{
-		std::cout << "ERROR: could not load ball_brick collision sound";
-	}
-	ball_brick_sound.setBuffer(ball_brick_buffer);
-}
-
-void Ball::playBrickCollisionSound()
-{
-	ball_brick_sound.play();
 }
